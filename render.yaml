@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: relations-project
+    env: python
+    rootDir: .
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    startCommand: gunicorn relations_project.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: relations_project.settings
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: false
+    autoDeploy: true
